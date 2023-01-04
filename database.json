@@ -2,8 +2,15 @@
     "dev": {
         "driver": "pg",
         "user": "postgres",
-        "password": "password",
+        "password": "test",
         "host": "localhost",
-        "database": "migrationdb"
+        "database": "bootstore"
+    },
+    "test": {
+        "driver": "pg",
+        "user": "postgres",
+        "password": "test",
+        "host": "localhost",
+        "database": "bootstore_test"
     }
 }
