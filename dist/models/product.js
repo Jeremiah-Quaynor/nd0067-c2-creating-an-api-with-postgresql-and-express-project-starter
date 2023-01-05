@@ -54,7 +54,7 @@ var Product = /** @class */ (function () {
                         return [4 /*yield*/, database_1["default"].connect()];
                     case 1:
                         conn = _a.sent();
-                        sql = "SELECT * FROM product";
+                        sql = 'SELECT * FROM product';
                         return [4 /*yield*/, conn.query(sql)];
                     case 2:
                         result = _a.sent();
@@ -78,7 +78,7 @@ var Product = /** @class */ (function () {
                         return [4 /*yield*/, database_1["default"].connect()];
                     case 1:
                         conn = _a.sent();
-                        sql = "SELECT * FROM product where product.id = $1";
+                        sql = 'SELECT * FROM product where product.id = $1';
                         return [4 /*yield*/, conn.query(sql, [id])];
                     case 2:
                         result = _a.sent();
@@ -92,7 +92,7 @@ var Product = /** @class */ (function () {
             });
         });
     };
-    Product.prototype.create = function (name, price, category) {
+    Product.prototype.create = function (p) {
         return __awaiter(this, void 0, void 0, function () {
             var conn, sql, result, err_3;
             return __generator(this, function (_a) {
@@ -102,8 +102,8 @@ var Product = /** @class */ (function () {
                         return [4 /*yield*/, database_1["default"].connect()];
                     case 1:
                         conn = _a.sent();
-                        sql = "INSERT INTO product(name, price, category) VALUES($1, $2, $3)";
-                        return [4 /*yield*/, conn.query(sql, [name, price, category])];
+                        sql = 'INSERT INTO product(name, price, category) VALUES($1, $2, $3)';
+                        return [4 /*yield*/, conn.query(sql, [p.name, p.price, p.category])];
                     case 2:
                         result = _a.sent();
                         conn.release();

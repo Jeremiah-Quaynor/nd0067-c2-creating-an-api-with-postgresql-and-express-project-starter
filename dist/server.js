@@ -35,15 +35,18 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 exports.__esModule = true;
 var product_1 = require("./models/product");
-var express = require("express");
-var bodyParser = require("body-parser");
-var app = express();
+var express_1 = __importDefault(require("express"));
+var body_parser_1 = __importDefault(require("body-parser"));
+var app = (0, express_1["default"])();
 //creating an instance of Product
 var product = new product_1.Product();
-app.use(bodyParser.json());
-var address = "0.0.0.3000";
+app.use(body_parser_1["default"].json());
+var address = '0.0.0.3000';
 app.get('/', function (req, res) {
     res.send('Home route');
 });
@@ -79,7 +82,7 @@ app.get('/product/:id', function (req, res) { return __awaiter(void 0, void 0, v
                 return [4 /*yield*/, product.show(id)];
             case 1:
                 result = _a.sent();
-                res.send(result);
+                res.send(result[0]);
                 return [3 /*break*/, 3];
             case 2:
                 err_2 = _a.sent();
@@ -92,13 +95,18 @@ app.get('/product/:id', function (req, res) { return __awaiter(void 0, void 0, v
 }); });
 // create a new product
 app.post('/product/add', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, name_1, price, category, result, err_3;
+    var _a, name_1, price, category, p, result, err_3;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
                 _b.trys.push([0, 2, , 3]);
                 _a = req.params.body, name_1 = _a.name, price = _a.price, category = _a.category;
-                return [4 /*yield*/, product.create(name_1, Number(price), category)];
+                p = {
+                    name: name_1,
+                    price: parseInt(price),
+                    category: category
+                };
+                return [4 /*yield*/, product.create(p)];
             case 1:
                 result = _b.sent();
                 res.send(result);

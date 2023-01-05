@@ -8,6 +8,7 @@
     "migrate": "db-migrate --env test up && db-migrate up",
     "test": "ENV=test db-migrate --env test up && jasmine-ts && db-migrate db:drop test",
     "lint": "eslint  'src/**/*.ts' ",
+    "format": "prettier --write \"**/*.{ts,js,json,css,md}\"",
     "tsc": "tsc"
   },
   "author": "Udacity",

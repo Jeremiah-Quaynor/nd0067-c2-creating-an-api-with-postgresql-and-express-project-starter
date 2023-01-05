@@ -1,16 +1,16 @@
 {
-    "dev": {
-        "driver": "pg",
-        "user": "postgres",
-        "password": "test",
-        "host": "localhost",
-        "database": "bootstore"
-    },
-    "test": {
-        "driver": "pg",
-        "user": "postgres",
-        "password": "test",
-        "host": "localhost",
-        "database": "bootstore_test"
-    }
+  "dev": {
+    "driver": "pg",
+    "user": "postgres",
+    "password": "test",
+    "host": "localhost",
+    "database": "bootstore"
+  },
+  "test": {
+    "driver": "pg",
+    "user": "postgres",
+    "password": "test",
+    "host": "localhost",
+    "database": "bootstore_test"
+  }
 }
