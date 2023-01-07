@@ -76,6 +76,7 @@ describe('Product model ', () => {
           price: 983,
           category: 'Lights',
         },
+        { id: 12, name: 'Ring Light', price: 7687, category: 'Lights' }
       ];
       const result = await product.index();
       expect(result).toEqual(re);
