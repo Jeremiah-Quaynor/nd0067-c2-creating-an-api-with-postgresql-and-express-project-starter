@@ -1,13 +1,12 @@
-import { Product, productType } from '../product';
-
-const product = new Product();
-
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+const product_1 = require('../product');
+const product = new product_1.Product();
 describe('Product model ', () => {
   describe('Index method suite', () => {
     it('should have an index method', () => {
       expect(product.index()).toBeDefined();
     });
-
     it('should return a list of products', async () => {
       const re = [
         {
@@ -81,15 +80,13 @@ describe('Product model ', () => {
       expect(result).toEqual(re);
     });
   });
-
   describe('Show method suite', () => {
     it('should have an show method', () => {
       expect(product.show('2')).toBeDefined();
     });
-
     it('should return a list of products', async () => {
       const result = await product.show('2');
-      const p: productType[] = [
+      const p = [
         {
           id: 2,
           name: 'clightman1',

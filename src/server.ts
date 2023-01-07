@@ -1,92 +1,18 @@
-import { Product, productType } from './models/product';
-
 import express, { Request } from 'express';
 import bodyParser from 'body-parser';
+import router from './routes';
 
 const app = express();
-
-//creating an instance of Product
-const product = new Product();
+const port = 3000;
 
 app.use(bodyParser.json());
 
-const address = '0.0.0.3000';
-
 app.get('/', (req: Request, res: { send: (arg0: string) => void }) => {
-    res.send('Home route');
+  res.send('Home route');
 });
 
-// get products
-app.get(
-    '/product',
-    async (
-        req: Request,
-        res: {
-        send: (arg0: productType[] | string) => void;
-        status: (arg0: number) => void;
-        json: (arg0: unknown) => void;
-        }
-    ) => {
-        try {
-            const result = await product.index();
-            res.send(result);
-        } catch (err) {
-            res.status(400);
-            res.json(err);
-        }
-    }
-);
-//get a product
-app.get(
-    '/product/:id',
-    async (
-        req: { params: { id: string } },
-        res: {
-            send: (arg0: productType | string) => void;
-            status: (arg0: number) => void;
-            json: (arg0: unknown) => void;
-        }
-    ) => {
-        try {
-            const id = req.params.id;
-            const result = await product.show(id);
-            res.send(result[0]);
-        } catch (err) {
-        res.status(400);
-        res.json(err);
-        }
-    }
-);
+app.use('/store', router);
 
-// create a new product
-app.post(
-    '/product/add',
-    async (
-        req: {
-        params: { body: { name: string; price: string; category: string } };
-        },
-        res: {
-            send: (arg0: productType | string) => void;
-            status: (arg0: number) => void;
-            json: (arg0: unknown) => void;
-        }
-    ) => {
-        try {
-            const { name, price, category } = req.params.body;
-            const p: productType = {
-                name: name,
-                price: parseInt(price),
-                category: category,
-            };
-            const result = await product.create(p);
-            res.send(result);
-        } catch (err) {
-            res.status(400);
-            res.json(err);
-        }
-    }
-);
-
-app.listen(3000, function () {
-    console.log(`starting app on ${address}`);
+app.listen(port, function () {
+  console.log(`starting app on http://localhost:${port}`);
 });
