@@ -14,7 +14,7 @@ export const createCookieAuth = async (req: Request) => {
   return token;
 };
 
-export const authenticate = (req: Request, res: Response) => {
+export const authenticate = (req: Request, res: Response, next: () => void) => {
   const token = req.cookies.token;
   try {
     jwt.verify(token, secret);

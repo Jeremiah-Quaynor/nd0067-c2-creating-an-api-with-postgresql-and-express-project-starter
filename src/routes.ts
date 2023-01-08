@@ -50,7 +50,7 @@ router.get(
 
 //get a product
 router.get(
-  '/product/:id',
+  '/products/:id',
   async (
     req: { params: { id: string } },
     res: {
@@ -72,7 +72,7 @@ router.get(
 
 // create a new product
 router.post(
-  '/product/add',
+  '/products/add',
   authenticate,
   async (req: Request, res: Response) => {
     try {
@@ -96,7 +96,7 @@ router.post(
 // get all users
 router.get(
   '/users',
-  // authenticate,
+  authenticate,
   async (req: Request, res: Response) => {
     try {
       const result = await user.index();
