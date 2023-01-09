@@ -39,9 +39,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 exports.__esModule = true;
-exports.authenticate = exports.createCookieAuth = void 0;
+exports.authenticatePassword = exports.authenticateJWT = exports.createCookieAuth = void 0;
+var dotenv_1 = __importDefault(require("dotenv"));
 var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 var secret = 'anana';
+dotenv_1["default"].config();
 var createCookieAuth = function (req) { return __awaiter(void 0, void 0, void 0, function () {
     var _a, firstName, lastName, password, payload, token;
     return __generator(this, function (_b) {
@@ -56,7 +58,7 @@ var createCookieAuth = function (req) { return __awaiter(void 0, void 0, void 0,
     });
 }); };
 exports.createCookieAuth = createCookieAuth;
-var authenticate = function (req, res, next) {
+var authenticateJWT = function (req, res, next) {
     var token = req.cookies.token;
     try {
         jsonwebtoken_1["default"].verify(token, secret);
@@ -67,4 +69,23 @@ var authenticate = function (req, res, next) {
         return;
     }
 };
-exports.authenticate = authenticate;
+exports.authenticateJWT = authenticateJWT;
+function authenticatePassword(firstName, lastName, password) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            // const conn = await Client.connect()
+            // const sql = 'SELECT password FROM users WHERE firstName=($1) AND lastName=($2)'
+            // const result = await conn.query(sql, [firstName,lastName])
+            // console.log(password+pepper)
+            // if(result.rows.length) {
+            //   const user = result.rows[0]
+            //   console.log(user)
+            //   if (bcrypt.compareSync(password+pepper, user.password_digest)) {
+            //     return user
+            //   }
+            // }
+            return [2 /*return*/, null];
+        });
+    });
+}
+exports.authenticatePassword = authenticatePassword;

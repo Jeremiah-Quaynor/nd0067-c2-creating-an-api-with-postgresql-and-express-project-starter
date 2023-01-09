@@ -41,27 +41,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 exports.__esModule = true;
 var express_1 = require("express");
 var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-var cookie_parser_1 = __importDefault(require("cookie-parser"));
-var bcrypt_1 = __importDefault(require("bcrypt"));
+var dotenv_1 = __importDefault(require("dotenv"));
 var product_1 = require("./models/product");
 var users_1 = require("./models/users");
-var cookieJwtAuth_1 = require("./middleware/cookieJwtAuth");
 var orders_1 = require("./models/orders");
+var verifyToken_1 = __importDefault(require("./middleware/verifyToken"));
 // Creating new instances of classes
+dotenv_1["default"].config();
 var router = (0, express_1.Router)();
 var product = new product_1.Product();
 var user = new users_1.Users();
 var order = new orders_1.orders();
-// salt rounds for hashing
-var saltRounds = 10;
-var SECRET = 'anana';
-router.use((0, cookie_parser_1["default"])());
+var SECRET_KEY = process.env.SECRET_KEY;
 router.get('/', function (req, res) {
     res.send('Store route');
 });
 // product routes
 // get all products
-router.get('/product', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+router.get('/products', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var result, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -76,7 +73,7 @@ router.get('/product', function (req, res) { return __awaiter(void 0, void 0, vo
                 err_1 = _a.sent();
                 res.status(400);
                 res.json(err_1);
-                return [3 /*break*/, 3];
+                return [2 /*return*/];
             case 3: return [2 /*return*/];
         }
     });
@@ -92,48 +89,81 @@ router.get('/products/:id', function (req, res) { return __awaiter(void 0, void 
                 return [4 /*yield*/, product.show(id)];
             case 1:
                 result = _a.sent();
-                res.send(result[0]);
+                res.send(result);
                 return [3 /*break*/, 3];
             case 2:
                 err_2 = _a.sent();
                 res.status(400);
                 res.json(err_2);
-                return [3 /*break*/, 3];
+                return [2 /*return*/];
             case 3: return [2 /*return*/];
         }
     });
 }); });
 // create a new product
-router.post('/products/add', cookieJwtAuth_1.authenticate, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, name_1, price, category, p, result, err_3;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
+router.post('/products/add', verifyToken_1["default"], function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var p, authorizationHeader, token, result, err_3;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
             case 0:
-                _b.trys.push([0, 2, , 3]);
-                _a = req.body, name_1 = _a.name, price = _a.price, category = _a.category;
                 p = {
-                    name: name_1,
-                    price: parseInt(price),
-                    category: category
+                    name: req.body.name,
+                    price: parseInt(req.body.price),
+                    category: req.body.category
                 };
-                return [4 /*yield*/, product.create(p)];
+                try {
+                    authorizationHeader = req.headers.authorization;
+                    token = authorizationHeader === null || authorizationHeader === void 0 ? void 0 : authorizationHeader.split(' ')[1];
+                    jsonwebtoken_1["default"].verify(token, SECRET_KEY);
+                }
+                catch (err) {
+                    res.status(401);
+                    res.json("Access denied, Invalid token ".concat(err));
+                    return [2 /*return*/];
+                }
+                _a.label = 1;
             case 1:
-                result = _b.sent();
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, product.create(p)];
+            case 2:
+                result = _a.sent();
+                res.send(result);
+                return [3 /*break*/, 4];
+            case 3:
+                err_3 = _a.sent();
+                res.status(400);
+                res.json(err_3);
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); });
+// get products by category
+router.get('/products/category/:cat', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var cat, result, err_4;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                cat = req.params.cat;
+                return [4 /*yield*/, product.filterBy(cat)];
+            case 1:
+                result = _a.sent();
                 res.send(result);
                 return [3 /*break*/, 3];
             case 2:
-                err_3 = _b.sent();
+                err_4 = _a.sent();
                 res.status(400);
-                res.json(err_3);
-                return [3 /*break*/, 3];
+                res.json(err_4);
+                return [2 /*return*/];
             case 3: return [2 /*return*/];
         }
     });
 }); });
 // user routes
 // get all users
-router.get('/users', cookieJwtAuth_1.authenticate, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var result, err_4;
+router.get('/users', verifyToken_1["default"], function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var result, err_5;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -144,35 +174,36 @@ router.get('/users', cookieJwtAuth_1.authenticate, function (req, res) { return 
                 res.send(result);
                 return [3 /*break*/, 3];
             case 2:
-                err_4 = _a.sent();
+                err_5 = _a.sent();
                 res.status(400);
-                res.json(err_4);
+                res.json(err_5);
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
         }
     });
 }); });
 //get a user
-router.get('/users/:id', cookieJwtAuth_1.authenticate, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var token, id, result, err_5;
+router.get('/users/:id', verifyToken_1["default"], function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var result, err_6, id, result, err_7;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                token = req.cookies.token;
-                try {
-                    jsonwebtoken_1["default"].verify(token, SECRET);
-                }
-                catch (err) {
-                    res.status(401);
-                    res.json(err);
-                    return [2 /*return*/];
-                }
-                _a.label = 1;
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, user.show(Number(req.params.id))];
             case 1:
-                _a.trys.push([1, 3, , 4]);
+                result = _a.sent();
+                res.status(200).json(result);
+                return [3 /*break*/, 3];
+            case 2:
+                err_6 = _a.sent();
+                res.status(401);
+                res.json(err_6);
+                return [2 /*return*/];
+            case 3:
+                _a.trys.push([3, 5, , 6]);
                 id = req.params.id;
                 return [4 /*yield*/, user.show(Number(id))];
-            case 2:
+            case 4:
                 result = _a.sent();
                 if (result.length === 0) {
                     res.send('User does not exist');
@@ -180,55 +211,47 @@ router.get('/users/:id', cookieJwtAuth_1.authenticate, function (req, res) { ret
                 else {
                     res.send(result[0]);
                 }
-                return [3 /*break*/, 4];
-            case 3:
-                err_5 = _a.sent();
+                return [3 /*break*/, 6];
+            case 5:
+                err_7 = _a.sent();
                 res.status(400);
-                res.json(err_5);
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
+                res.json(err_7);
+                return [3 /*break*/, 6];
+            case 6: return [2 /*return*/];
         }
     });
 }); });
 // creating new user
 router.post('/users/add', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, firstName, lastName, password, salt, hash, u, tok, result, err_6;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
+    var u, result, token, err_8;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
             case 0:
-                _a = req.body, firstName = _a.firstName, lastName = _a.lastName, password = _a.password;
-                salt = bcrypt_1["default"].genSaltSync(saltRounds);
-                hash = bcrypt_1["default"].hashSync(password, salt);
                 u = {
-                    firstName: firstName,
-                    lastName: lastName,
-                    password: hash
+                    firstName: req.body.firstName,
+                    lastName: req.body.lastName,
+                    password: req.body.password
                 };
-                return [4 /*yield*/, (0, cookieJwtAuth_1.createCookieAuth)(req)];
+                _a.label = 1;
             case 1:
-                tok = _b.sent();
-                res.cookie('token', tok, {
-                    httpOnly: true
-                });
-                _b.label = 2;
-            case 2:
-                _b.trys.push([2, 4, , 5]);
+                _a.trys.push([1, 3, , 4]);
                 return [4 /*yield*/, user.create(u)];
+            case 2:
+                result = _a.sent();
+                token = jsonwebtoken_1["default"].sign({ user: result }, SECRET_KEY);
+                res.status(200).json(token);
+                return [3 /*break*/, 4];
             case 3:
-                result = _b.sent();
-                res.status(200).json(result);
-                return [3 /*break*/, 5];
-            case 4:
-                err_6 = _b.sent();
+                err_8 = _a.sent();
                 res.status(400).json('Invalid details provided');
-                return [3 /*break*/, 5];
-            case 5: return [2 /*return*/];
+                return [2 /*return*/];
+            case 4: return [2 /*return*/];
         }
     });
 }); });
 // get all orders
-router.get('/orders', cookieJwtAuth_1.authenticate, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var result, err_7;
+router.get('/orders', verifyToken_1["default"], function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var result, err_9;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -239,16 +262,16 @@ router.get('/orders', cookieJwtAuth_1.authenticate, function (req, res) { return
                 res.status(200).json(result);
                 return [3 /*break*/, 3];
             case 2:
-                err_7 = _a.sent();
+                err_9 = _a.sent();
                 res.status(400).json('Invalid details provided');
-                return [3 /*break*/, 3];
+                return [2 /*return*/];
             case 3: return [2 /*return*/];
         }
     });
 }); });
 // get order with specific status
-router.get('/orders/:state', cookieJwtAuth_1.authenticate, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var state, result, err_8;
+router.get('/orders/:state', verifyToken_1["default"], function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var state, result, err_10;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -264,12 +287,13 @@ router.get('/orders/:state', cookieJwtAuth_1.authenticate, function (req, res) {
                 }
                 else {
                     res.status(200).json(result);
+                    return [2 /*return*/];
                 }
                 return [3 /*break*/, 4];
             case 3:
-                err_8 = _a.sent();
+                err_10 = _a.sent();
                 res.status(400).json('Invalid details provided');
-                return [3 /*break*/, 4];
+                return [2 /*return*/];
             case 4: return [2 /*return*/];
         }
     });

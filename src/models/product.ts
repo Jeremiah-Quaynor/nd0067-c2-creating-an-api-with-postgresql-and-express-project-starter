@@ -42,8 +42,20 @@ export class Product {
     try {
       const conn = await Client.connect();
       const sql =
-        'INSERT INTO product(name, price, category) VALUES($1, $2, $3)';
+        'INSERT INTO product(name, price, category) VALUES($1, $2, $3) RETURNING *';
       const result = await conn.query(sql, [p.name, p.price, p.category]);
+      conn.release();
+      return result.rows;
+    } catch (err) {
+      throw new Error(`Cannot get product ${err} `);
+    }
+  }
+
+  async filterBy(cat: string): Promise<productType[]> {
+    try{
+      const conn = await Client.connect();
+      const sql = 'SELECT * FROM product WHERE category=$1';
+      const result = await conn.query(sql, [cat]);
       conn.release();
       return result.rows;
     } catch (err) {

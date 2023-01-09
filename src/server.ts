@@ -1,4 +1,4 @@
-import express, { Request } from 'express';
+import express, { Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import router from './routes';
 
@@ -7,7 +7,7 @@ const port = 3000;
 
 app.use(bodyParser.json());
 
-app.get('/', (req: Request, res: { send: (arg0: string) => void }) => {
+app.get('/', (req: Request, res:Response) => {
   res.send('Home route');
 });
 

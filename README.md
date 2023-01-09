@@ -38,7 +38,7 @@ To enter the various endpoints on the store. You first have to navigate to <a hr
 - To view the various products on the endpoint, you have to navigate to <a href="http://localhost:3000/store/products">http://localhost:3000/store/products</a>. An array of objects containning the products should appear.
 - To view a single product, you have to access the <a href="http://localhost:3000/store/products">http://localhost:3000/store/products</a>  route and attach a <code>/id</code> to the end. [where id = the id of the product you want].
 - To add a product to the table of products, you will have to navigate to <a href="http://localhost:3000/store/products/add">http://localhost:3000/store/products/add</a> then you add the data you want to be added with to the products.  
-
+- To view products by category, you have to access the <a href="http://localhost:3000/store/products/category">http://localhost:3000/store/products/category</a>  route and attach a <code>/cat</code> to the end. [where cat = the category of the products you want].
 
 ### 2. Users Endpoint
 - To view the various users on the endpoint, you have to navigate to <a href="http://localhost:3000/store/users">http://localhost:3000/store/users</a>. An array of objects containning the users should appear.

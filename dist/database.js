@@ -6,40 +6,24 @@ exports.__esModule = true;
 var pg_1 = require("pg");
 var dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1["default"].config();
-var 
-// POSTGRES_USER,
-// POSTGRES_HOST,
-// POSTGRES_DB,
-// POSTGRES_TEST_DB,
-// POSTGRES_PASSWORD,
-// POSTGRES_PORT,
-ENV = process.env.ENV;
+var _a = process.env, POSTGRES_USER = _a.POSTGRES_USER, POSTGRES_HOST = _a.POSTGRES_HOST, POSTGRES_DB = _a.POSTGRES_DB, POSTGRES_TEST_DB = _a.POSTGRES_TEST_DB, POSTGRES_PASSWORD = _a.POSTGRES_PASSWORD, POSTGRES_PORT = _a.POSTGRES_PORT, ENV = _a.ENV;
 var Client;
-// if(ENV === "test" ){
-//     Client = new Pool ({
-//         host: POSTGRES_HOST,
-//         database: POSTGRES_DB,
-//         user: POSTGRES_USER,
-//         password: POSTGRES_PASSWORD,
-//         port: POSTGRES_PORT
-//     })
-// }
-if (ENV === 'test') {
+if (ENV === "test") {
     Client = new pg_1.Pool({
-        host: 'localhost',
-        database: 'bootstore_test',
-        user: 'postgres',
-        password: 'test',
-        port: 5432
+        host: POSTGRES_HOST,
+        database: POSTGRES_TEST_DB,
+        user: POSTGRES_USER,
+        password: POSTGRES_PASSWORD,
+        port: Number(POSTGRES_PORT)
     });
 }
 if (ENV === 'dev') {
     Client = new pg_1.Pool({
-        host: 'localhost',
-        database: 'bootstore',
-        user: 'postgres',
-        password: 'test',
-        port: 5432
+        host: POSTGRES_HOST,
+        database: POSTGRES_DB,
+        user: POSTGRES_USER,
+        password: POSTGRES_PASSWORD,
+        port: Number(POSTGRES_PORT)
     });
 }
 exports["default"] = Client;

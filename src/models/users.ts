@@ -1,4 +1,10 @@
 import Client from '../database';
+import bcrypt from 'bcrypt';
+import dotenv from 'dotenv'
+
+dotenv.config();
+const pepper = process.env.SECRET_KEY;
+const saltRounds = Number(process.env.SALT_ROUNDS); 
 
 export type usersType = {
   id?: number;
@@ -41,20 +47,42 @@ export class Users {
       throw new Error(`Cannot delete user ${err}`);
     }
   }
-  async create(b: usersType): Promise<usersType> {
+  async create(b: usersType): Promise<usersType> {  
     try {
       const conn = await Client.connect();
       const sql =
-        'INSERT INTO users(firstName, lastName, password) VALUES($1, $2, $3)';
+        'INSERT INTO users(firstName, lastName, password) VALUES($1, $2, $3) RETURNING *';
+      const hash = bcrypt.hashSync(b.password + pepper, saltRounds)
       const result = await conn.query(sql, [
         b.firstName,
         b.lastName,
-        b.password,
+        hash,
       ]);
       conn.release();
       return result.rows;
     } catch (err) {
       throw new Error(`Cannot get product ${err} `);
     }
+  }
+  async authenticate(u:usersType): Promise<usersType|null> {
+    const conn = await Client.connect()
+    const sql = 'SELECT password FROM users WHERE firstName=($1) AND lastName=($2)'
+
+    const result = await conn.query(sql, [u.firstName, u.lastName])
+
+    console.log(u.password+pepper)
+
+    if(result.rows.length) {
+
+      const user = result.rows[0]
+
+      console.log(user)
+
+      if (bcrypt.compareSync(u.password+pepper, user.password)) {
+        return user
+      }
+    }
+
+    return null
   }
 }

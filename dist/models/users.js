@@ -41,6 +41,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 exports.__esModule = true;
 exports.Users = void 0;
 var database_1 = __importDefault(require("../database"));
+var bcrypt_1 = __importDefault(require("bcrypt"));
+var dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1["default"].config();
+var pepper = process.env.SECRET_KEY;
+var saltRounds = Number(process.env.SALT_ROUNDS);
 var Users = /** @class */ (function () {
     function Users() {
     }
@@ -118,7 +123,7 @@ var Users = /** @class */ (function () {
     };
     Users.prototype.create = function (b) {
         return __awaiter(this, void 0, void 0, function () {
-            var conn, sql, result, err_4;
+            var conn, sql, hash, result, err_4;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -126,11 +131,12 @@ var Users = /** @class */ (function () {
                         return [4 /*yield*/, database_1["default"].connect()];
                     case 1:
                         conn = _a.sent();
-                        sql = 'INSERT INTO users(firstName, lastName, password) VALUES($1, $2, $3)';
+                        sql = 'INSERT INTO users(firstName, lastName, password) VALUES($1, $2, $3) RETURNING *';
+                        hash = bcrypt_1["default"].hashSync(b.password + pepper, saltRounds);
                         return [4 /*yield*/, conn.query(sql, [
                                 b.firstName,
                                 b.lastName,
-                                b.password,
+                                hash,
                             ])];
                     case 2:
                         result = _a.sent();
@@ -140,6 +146,31 @@ var Users = /** @class */ (function () {
                         err_4 = _a.sent();
                         throw new Error("Cannot get product ".concat(err_4, " "));
                     case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Users.prototype.authenticate = function (u) {
+        return __awaiter(this, void 0, void 0, function () {
+            var conn, sql, result, user;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, database_1["default"].connect()];
+                    case 1:
+                        conn = _a.sent();
+                        sql = 'SELECT password FROM users WHERE firstName=($1) AND lastName=($2)';
+                        return [4 /*yield*/, conn.query(sql, [u.firstName, u.lastName])];
+                    case 2:
+                        result = _a.sent();
+                        console.log(u.password + pepper);
+                        if (result.rows.length) {
+                            user = result.rows[0];
+                            console.log(user);
+                            if (bcrypt_1["default"].compareSync(u.password + pepper, user.password)) {
+                                return [2 /*return*/, user];
+                            }
+                        }
+                        return [2 /*return*/, null];
                 }
             });
         });
