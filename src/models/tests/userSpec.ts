@@ -1,27 +1,27 @@
-import { Product, productType } from '../product';
+import { usersType, Users } from '../users';
 
-const product = new Product();
+const user = new Users();
 
 describe('Product model ', () => {
   describe('Index method suite', () => {
     it('should have an index method', () => {
-      expect(product.index()).toBeDefined();
+      expect(user.index()).toBeDefined();
     });
 
     it('should return a list of products', async () => {
 
-      const result = await product.index();
+      const result = await user.index();
       expect(result).toEqual([]);
     });
   });
 
   describe('Show method suite', () => {
     it('should have an show method', () => {
-      expect(product.show('1')).toBeDefined();
+      expect(user.show(1)).toBeDefined();
     });
 
     it('should return a list of products', async () => {
-      const result = await product.show('1');
+      const result = await user.show(1);
 
       expect(result).toEqual([]);
     });
@@ -29,13 +29,13 @@ describe('Product model ', () => {
 
   describe('Create method suite', ()=> {
     it('should have a Create method',async()=> {
-      const p:productType = {
+      const u: usersType = {
         id: 1,
-        name: "ps5",
-        price: 9834,
-        category: "console"
+        firstName: "jay",
+        lastName: "hommey",
+        password: "here"
         }
-      expect(product.create(p)).toBeDefined();
+      expect(user.create(u)).toBeDefined();
     })
   })
 });

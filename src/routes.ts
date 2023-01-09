@@ -18,10 +18,15 @@ const SECRET_KEY: any = process.env.SECRET_KEY;
 
 
 router.get('/', (req, res) => {
+  console.log(process.env.POSTGRES_DB)
   res.send('Store route');
 });
 
 // product routes
+console.log(process.env.POSTGRES_DB)
+console.log(process.env.POSTGRES_TEST_DB)
+console.log(process.env.ENV)
+
 
 // get all products
 router.get(
