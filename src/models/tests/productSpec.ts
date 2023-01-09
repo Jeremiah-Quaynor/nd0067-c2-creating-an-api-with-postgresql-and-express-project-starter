@@ -11,73 +11,30 @@ describe('Product model ', () => {
     it('should return a list of products', async () => {
       const re = [
         {
-          id: 1,
-          name: 'kmulles0',
-          price: 95,
-          category: 'Hard Tile & Stone',
+        id: 1,
+        name: "Ring Lights",
+        price: 9834,
+        category: "Lights"
         },
         {
-          id: 2,
-          name: 'clightman1',
-          price: 89,
-          category: 'Granite Surfaces',
+        id: 2,
+        name: "Street Lights",
+        price: 3423,
+        category: "Lights"
         },
         {
-          id: 3,
-          name: 'zbeckmann2',
-          price: 95,
-          category: 'Roofing (Metal)',
+        id: 3,
+        name: "Percy Jackson",
+        price: 324,
+        category: "Books"
         },
         {
-          id: 4,
-          name: 'asalkild3',
-          price: 71,
-          category: 'Casework',
-        },
-        {
-          id: 5,
-          name: 'clodin4',
-          price: 8,
-          category: 'Drywall & Acoustical (FED)',
-        },
-        {
-          id: 6,
-          name: 'bpavlitschek5',
-          price: 94,
-          category: 'HVAC',
-        },
-        {
-          id: 7,
-          name: 'cmaunton6',
-          price: 16,
-          category: 'Plumbing & Medical Gas',
-        },
-        {
-          id: 8,
-          name: 'jpalffy7',
-          price: 7,
-          category: 'Drywall & Acoustical (MOB)',
-        },
-        {
-          id: 9,
-          name: 'espinley8',
-          price: 11,
-          category: 'Overhead Doors',
-        },
-        {
-          id: 10,
-          name: 'kjansson9',
-          price: 60,
-          category: 'Wall Protection',
-        },
-        {
-          id: 11,
-          name: 'Ring Lights',
-          price: 983,
-          category: 'Lights',
-        },
-        { id: 12, name: 'Ring Light', price: 7687, category: 'Lights' }
-      ];
+        id: 4,
+        name: "Mac book pro",
+        price: 32432,
+        category: "laptop"
+        }
+        ];
       const result = await product.index();
       expect(result).toEqual(re);
     });
@@ -93,12 +50,24 @@ describe('Product model ', () => {
       const p: productType[] = [
         {
           id: 2,
-          name: 'clightman1',
-          price: 89,
-          category: 'Granite Surfaces',
-        },
+          name: "Street Lights",
+          price: 3423,
+          category: "Lights"
+          },
       ];
       expect(result).toEqual(p);
     });
   });
+
+  describe('Create method suite', ()=> {
+    it('should have a Create method',async()=> {
+      const p:productType = {
+        id: 1,
+        name: "ps5",
+        price: 9834,
+        category: "console"
+        }
+      expect(product.create(p)).toBeDefined();
+    })
+  })
 });
