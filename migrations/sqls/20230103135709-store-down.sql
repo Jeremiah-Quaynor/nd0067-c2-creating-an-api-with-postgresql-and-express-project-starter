@@ -1,4 +1,5 @@
 /* Replace with your SQL commands */
-DROP TABLE product;
+DROP TABLE Product;
 DROP TABLE users;
 DROP TABLE orders;
+DROP TABLE order_products;

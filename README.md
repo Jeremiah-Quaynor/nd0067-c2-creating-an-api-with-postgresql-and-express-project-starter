@@ -31,25 +31,25 @@ To run prettier configurations. Enter the command <code>npm run format</code>.
 
 
 
-## Accessing The Various Endpoints
+## 4. Accessing The Various Endpoints
 To enter the various endpoints on the store. You first have to navigate to <a href="http://localhost:3000/store">http://localhost:3000/store</a> then add the various endpoints
 
-### 1. Products Endpoint
+#### 1. Products Endpoint
 - To view the various products on the endpoint, you have to navigate to <a href="http://localhost:3000/store/products">http://localhost:3000/store/products</a>. An array of objects containning the products should appear.
-- To view a single product, you have to access the <a href="http://localhost:3000/store/products">http://localhost:3000/store/products</a>  route and attach a <code>/id</code> to the end. [where id = the id of the product you want].
+- To view a single product, you have to access the <a href="http://localhost:3000/store/products">http://localhost:3000/store/products</a>  route and attach a <code>/id</code> to the end. [where **id** = the **id** of the product you want].
 - To add a product to the table of products, you will have to navigate to <a href="http://localhost:3000/store/products/add">http://localhost:3000/store/products/add</a> then you add the data you want to be added with to the products.  
-- To view products by category, you have to access the <a href="http://localhost:3000/store/products/category">http://localhost:3000/store/products/category</a>  route and attach a <code>/cat</code> to the end. [where cat = the category of the products you want].
+- To view products by category, you have to access the <a href="http://localhost:3000/store/products/category">http://localhost:3000/store/products/category</a>  route and attach a <code>/cat</code> to the end. [where **cat** = the category of the products you want].
 
-### 2. Users Endpoint
+#### 2. Users Endpoint
 - To view the various users on the endpoint, you have to navigate to <a href="http://localhost:3000/store/users">http://localhost:3000/store/users</a>. An array of objects containning the users should appear.
-- To view a single user, you have to access the <a href="http://localhost:3000/store/users">http://localhost:3000/store/users</a>  route and attact a <code>/id</code> to the end. [where id = the id of the user you want].
+- To view a single user, you have to access the <a href="http://localhost:3000/store/users">http://localhost:3000/store/users</a>  route and attact a <code>/id</code> to the end. [where **id** = the **id** of the user you want].
 - To add a user to the table of user, you will have to navigate to <a href="http://localhost:3000/store/users/add">http://localhost:3000/store/users/add</a> then you add the data you want to be added with to the users.  
 
 
-### 3. Orders Endpoint
+#### 3. Orders Endpoint
 - To view the various orders on the endpoint, you have to navigate to <a href="http://localhost:3000/store/orders">http://localhost:3000/store/orders</a>. An array of objects containning the orders should appear.
-- To view a single order, you have to access the <a href="http://localhost:3000/store/orders">http://localhost:3000/store/orders</a>  route and attact a <code>/id</code> to the end. [where id = the id of the user you want].
-- To add a user to the table of orders, you will have to navigate to <a href="http://localhost:3000/store/orders/add">http://localhost:3000/store/users/add</a> then you add the data you want to be added with to the orders.  
+- To view orders with a with a particular status, you have to access the <a href="http://localhost:3000/store/orders">http://localhost:3000/store/orders</a>  route and attact a <code>/status</code> to the end. [where **status** = the status you want].
+- To add a product to orders, you will have to navigate to <a href="http://localhost:3000/store/orders/">http://localhost:3000/store/orders</a>. Add a <code>/product</code>, then you add the data you want to be added with to the orders.  
   
 
 

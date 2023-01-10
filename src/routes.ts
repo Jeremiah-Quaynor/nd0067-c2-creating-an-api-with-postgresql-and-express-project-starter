@@ -174,8 +174,7 @@ router.get('/orders',verifyAuthToken, async (req: Request, res: Response) => {
 });
 
 // get order with specific status
-router.get(
-  '/orders/:state',
+router.get('/orders/:state',
   verifyAuthToken,
   async (req: Request, res: Response) => {
     const state = req.params.state;
@@ -193,5 +192,19 @@ router.get(
     }
   }
 );
+
+// adding an order
+router.post('/orders/:id/product',verifyAuthToken, async(req:Request, res:Response ) => {
+  const orderId:string = req.params.id;
+  const productId:string = req.body.productId;
+  const quantity: number = parseInt(req.body.quantity);
+  try{
+    const addedProduct = await order.addProduct(quantity,orderId, productId)
+    res.json(addedProduct);
+  } catch (err) {
+    res.status(400).json('Invalid details provided');
+    return
+  }
+})
 
 export default router;
