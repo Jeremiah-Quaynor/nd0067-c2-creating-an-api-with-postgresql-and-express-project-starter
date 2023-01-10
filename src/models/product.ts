@@ -50,7 +50,6 @@ export class Product {
       throw new Error(`Cannot get product ${err} `);
     }
   }
-
   async filterBy(cat: string): Promise<productType[]> {
     try{
       const conn = await Client.connect();

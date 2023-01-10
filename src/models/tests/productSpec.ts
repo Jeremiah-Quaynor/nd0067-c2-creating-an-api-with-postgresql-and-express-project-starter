@@ -20,7 +20,7 @@ describe('Product model ', () => {
       expect(product.show('1')).toBeDefined();
     });
 
-    it('should return a list of products', async () => {
+    it('should return a empty array of products', async () => {
       const result = await product.show('1');
 
       expect(result).toEqual([]);

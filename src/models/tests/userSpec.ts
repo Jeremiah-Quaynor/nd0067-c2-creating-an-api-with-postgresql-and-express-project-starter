@@ -2,13 +2,13 @@ import { usersType, Users } from '../users';
 
 const user = new Users();
 
-describe('Product model ', () => {
+describe('User model ', () => {
   describe('Index method suite', () => {
     it('should have an index method', () => {
       expect(user.index()).toBeDefined();
     });
 
-    it('should return a list of products', async () => {
+    it('should return an empty of users', async () => {
 
       const result = await user.index();
       expect(result).toEqual([]);
@@ -20,7 +20,7 @@ describe('Product model ', () => {
       expect(user.show(1)).toBeDefined();
     });
 
-    it('should return a list of products', async () => {
+    it('should return a user', async () => {
       const result = await user.show(1);
 
       expect(result).toEqual([]);

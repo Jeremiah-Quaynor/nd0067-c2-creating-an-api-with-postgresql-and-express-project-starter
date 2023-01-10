@@ -15,8 +15,14 @@ CREATE TABLE users(
 
 CREATE TABLE orders (
     id SERIAL PRIMARY KEY,
-    product_id integer REFERENCES product(id),
-    quantity integer NOT NULL,
-    user_id integer REFERENCES users(id),
-    status VARCHAR(255) NOT NULL
+    status VARCHAR(64) NOT NULL,
+    user_id bigint REFERENCES users(id)
+);
+
+CREATE TABLE order_products(
+    id SERIAL PRIMARY KEY,
+    quantity integer,
+    order integer,
+    order_id bigint REFERENCES orders(id),
+    product_id bigint REFERENCES product(id)
 );

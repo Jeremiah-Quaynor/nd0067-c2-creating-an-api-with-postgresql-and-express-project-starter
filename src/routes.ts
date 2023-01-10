@@ -22,11 +22,6 @@ router.get('/', (req, res) => {
   res.send('Store route');
 });
 
-// product routes
-console.log(process.env.POSTGRES_DB)
-console.log(process.env.POSTGRES_TEST_DB)
-console.log(process.env.ENV)
-
 
 // get all products
 router.get(
