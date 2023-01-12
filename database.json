@@ -4,13 +4,13 @@
     "user": "postgres",
     "password": "test",
     "host": "localhost",
-    "database": "bookstore"
+    "database": "store"
   },
   "test": {
     "driver": "pg",
     "user": "postgres",
     "password": "test",
     "host": "localhost",
-    "database": "bookstore_test"
+    "database":"store_test"
   }
 }
