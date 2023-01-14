@@ -3,7 +3,13 @@ Welcome to the shopping site API project!. The API will provide endpoints for re
 
 
 ## 1. Getting Started
-First clone the repo and run <code>npm install</code> to install all the dependencies.
+- First clone the repo and run <code>npm install</code> to install all the dependencies.
+- Then you open up your terminal and run <code>psql</code> to connect to postgres.
+- Next you create a user in postgres by running the command <code>CREATE USER full_stack_user WITH PASSWORD 'password';</code>
+- Also, we create the store front database and test database with the commands <code>CREATE DATABASE store;</code> and <code>CREATE DATABASE store_test;</code> 
+- Then run the command <code>GRANT ALL PRIVILEGES ON DATABASE store TO full_stack_user;</code> and <code>GRANT ALL PRIVILEGEPOSS ON DATABASE store_test TO full_stack_user;</code>
+- Look for the <code>database.json</code> file in the root directory and change the values [user, password, database]
+- Also, In the <code>.env</code> file, located in the root directory, edit the values there so they match your actual values. [POSTGRES_DB,POSTGRES_TEST_DB,POSTGRES_USER, POSTGRES_PASSWORD]
 Then run the command <code>npm run migrate</code>. to perform a database migration.
 
 

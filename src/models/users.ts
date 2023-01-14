@@ -25,7 +25,7 @@ export class Users {
       throw new Error(`Cannot get products ${err}`);
     }
   }
-  async show(id: number): Promise<usersType[]> {
+  async show(id: string): Promise<usersType[]> {
     try {
       const conn = await Client.connect();
       const sql = 'SELECT * FROM users WHERE id = ($1)';
@@ -70,7 +70,7 @@ export class Users {
 
     const result = await conn.query(sql, [u.firstName, u.lastName])
 
-    console.log(u.password+pepper)
+    // console.log(u.password+pepper)
 
     if(result.rows.length) {
 

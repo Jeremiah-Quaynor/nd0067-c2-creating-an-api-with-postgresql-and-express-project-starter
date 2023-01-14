@@ -123,25 +123,13 @@ router.get(
 //get a user
 router.get('/users/:id',verifyAuthToken , async (req: Request, res: Response) => {
   try {
-    const result = await user.show(Number(req.params.id))
+    const id = req.params.id;
+    const result = await user.show(id)
     res.status(200).json(result)
   } catch (err) {
     res.status(401);
     res.json(err);
     return;
-  }
-
-  try {
-    const id = req.params.id;
-    const result = await user.show(Number(id));
-    if (result.length === 0) {
-      res.send('User does not exist');
-    } else {
-      res.send(result[0]);
-    }
-  } catch (err) {
-    res.status(400);
-    res.json(err);
   }
 });
 

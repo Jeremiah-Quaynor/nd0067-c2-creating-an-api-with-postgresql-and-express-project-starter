@@ -8,13 +8,11 @@ const request = supertest(app);
 describe('Testing endpoint responses', () => {
     it('should home route ', async () => {
         const response = await request.get('/');
-        console.log("passed")
         expect(response.status).toBe(200);
     });
 
     it('should get Store route', async () => {
         const response = await request.get('/store');
-        console.log("passed two")
         expect(response.status).toBe(200);
     });
 });

@@ -3,39 +3,36 @@ import { usersType, Users } from '../users';
 const user = new Users();
 
 describe('User model ', () => {
-  describe('Index method suite', () => {
-    it('should have an index method', () => {
-      expect(user.index()).toBeDefined();
-    });
-
-    it('should return an empty of users', async () => {
-
+  it('should be empty', async () => {
+    const result = await user.index();
+    expect(result).toEqual([]);
+  });
+  it('should be empty', async () => {
+    const result = await user.show("1");
+    expect(result).toEqual([]);
+  });
+  it('should be greater than 0',async()=> {
+    const u: usersType = {
+      firstName: "jay",
+      lastName: "hommey",
+      password: "here"
+      }
+      await user.create(u)
       const result = await user.index();
-      expect(result).toEqual([]);
-    });
-  });
-
-  describe('Show method suite', () => {
-    it('should have an show method', () => {
-      expect(user.show(1)).toBeDefined();
-    });
-
-    it('should return a user', async () => {
-      const result = await user.show(1);
-
-      expect(result).toEqual([]);
-    });
-  });
-
-  describe('Create method suite', ()=> {
-    it('should have a Create method',async()=> {
-      const u: usersType = {
-        id: 1,
-        firstName: "jay",
-        lastName: "hommey",
-        password: "here"
-        }
-      expect(user.create(u)).toBeDefined();
-    })
+      expect(result.length).toBeGreaterThan(0)
+  })
+  it('should return a user',async () => {
+    const U: usersType = {
+      firstName: "jay",
+      lastName: "hommey",
+      password: "here"
+      }
+    const result = await user.authenticate(U)
+    expect(result).toEqual(null)
+  })
+  it('should be empty', async () => {
+    await user.delete('1')
+    const result = await user.index();
+    expect(result.length).toEqual(0)
   })
 });
