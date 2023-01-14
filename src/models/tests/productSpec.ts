@@ -3,15 +3,15 @@ import { Product, productType } from '../product';
 const product = new Product();
 
 describe('Product model ', () => {
-    it('should return empty array', async () => {
+    it('should be 1 (index)', async () => {
       const result = await product.index();
-      expect(result).toEqual([]);
+      expect(result.length).toBe(1);
     });
-    it('it should return empty array', async()=> {
+    it('should be 1 (show)', async()=> {
       const result = await product.show('1');
-      expect(result).toEqual([])
+      expect(result.length).toBe(1)
     })
-    it('should be greater than 0',async () => {
+    it('should be greater than 0 (create)',async () => {
       const p:productType = {
         name: "Ring Lights",
         price: 3242,
@@ -21,7 +21,7 @@ describe('Product model ', () => {
       const products = await product.index()
       expect(products.length).toBeGreaterThan(0)
     })
-    it('should be greater than 0',async () => {
+    it('should be 1 (filterBy)',async () => {
       const result = await product.filterBy('Lights') 
       expect(result.length).toBe(0)
     })
