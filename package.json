@@ -9,7 +9,7 @@
     "test": "export ENV=test&& db-migrate --env test up && jasmine-ts && db-migrate --env test down && unset ENV",
     "lint": "eslint  'src/**/*.ts' ",
     "format": "prettier --write \"**/*.{ts,js,json,css,md}\"",
-    "tsc": "tsc"
+    "build": "npx tsc"
   },
   "author": "Udacity",
   "license": "ISC",

@@ -47,7 +47,7 @@ export class Users {
       throw new Error(`Cannot delete user ${err}`);
     }
   }
-  async create(b: usersType): Promise<usersType> {  
+  async create(b: usersType): Promise<usersType|null> {  
     try {
       const conn = await Client.connect();
       const sql =
@@ -64,7 +64,7 @@ export class Users {
       throw new Error(`Cannot get product ${err} `);
     }
   }
-  async authenticate(u:usersType): Promise<usersType|null> {
+  async authenticate(u:usersType): Promise<usersType['password']|null> {
     const conn = await Client.connect()
     const sql = 'SELECT password FROM users WHERE firstName=($1) AND lastName=($2)'
 

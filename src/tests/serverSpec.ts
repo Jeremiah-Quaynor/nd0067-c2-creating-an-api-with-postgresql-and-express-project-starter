@@ -1,8 +1,14 @@
 import supertest from 'supertest'
 import { app } from '../server'
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv'
+import verifyAuthToken from '../middleware/verifyToken';
 
 
 const request = supertest(app);
+dotenv.config();
+const SECRET_KEY: any = process.env.SECRET_KEY;
+
 
 
 describe('Testing endpoint responses', () => {
@@ -36,33 +42,37 @@ describe('Testing Products responses', () => {
 });
 
 
-// describe("Tests for User Routes", ()=> {
-//     it('should get users route', async () => {
-//         const response = await request.get('/store/users');
-//         expect(response.status).toBe(200);
-//     });
+describe("Tests for User Routes", ()=> {
+    it('should get users route', async () => {
+        const response = await request.get('/store/users');
+        expect(response.status).toBe(200);
+    });
 
-//     it('should a user route ', async () => {
-//         const response = await request.get('/store/users/1');
-//         expect(response.status).toBe(200);
-//     });
+    it('should a user route ', async () => {
+        const response = await request.get('/store/users/1');
+        expect(response.status).toBe(200);
+    });
 
-//     it('should create a user route', async () => {
-//         const response = await request.post('/store/users/add');
-//         expect(response.status).toBe(200);
-//     });
+    it('should create a user route', async () => {
+        const response = await request.post('/store/users/add');
+        expect(response.status).toBe(200);
+    });
 
-// })
+})
 
-// describe("Should Get Orders routes", ()=> {
+describe("Should Get Orders routes", ()=> {
 
-//     it('should Index Orders route ', async () => {
-//         const response = await request.get('/store/orders');
-//         expect(response.status).toBe(200);
-//     });
+    it('should Index Orders route ', async () => {
+        const response = await request.get('/store/orders');
+        expect(response.status).toBe(200);
+    });
 
-//     it('should get Orders by Status route', async () => {
-//         const response = await request.get('/store/orders/completed');
-//         expect(response.status).toBe(200);
-//     });
-// })
+    it('should get Orders by Status route', async () => {
+        const response = await request.get('/store/orders/completed');
+        expect(response.status).toBe(200);
+    });
+})
+
+
+
+// , "../src/models/tests/*[S]pec.ts"
