@@ -55,23 +55,23 @@
    |product_id|     int             |
 
 ## Available Routes
-- <a href="http://localhost:3000">http://localhost:3000</a> - Home Route
-- <a href="http://localhost:3000/store">http://localhost:3000/store</a> - Store route
+- <a href="http://localhost:3000">http://localhost:3000</a> - (GET) Home Route
+- <a href="http://localhost:3000/store">http://localhost:3000/store</a> - (GET) Store route
 ##### Products Routes
-- <a href="http://localhost:3000/store/products">http://localhost:3000/store/products</a> - get all products route
-- <a href="http://localhost:3000/store/prouducts/:id">http://localhost:3000/store/products/:id</a> - get a single product route
-- <a href="http://localhost:3000/store/products/add">http://localhost:3000/store/products/add</a> -add a product to the store
-- <a href="http://localhost:3000/store/products/category/:cat">http://localhost:3000/store/products/category/:cat</a> - get products by category
+- <a href="http://localhost:3000/store/products">http://localhost:3000/store/products</a> - (GET) get all products route
+- <a href="http://localhost:3000/store/prouducts/:id">http://localhost:3000/store/products/:id</a> - (GET) get a single product route
+- <a href="http://localhost:3000/store/products/add">http://localhost:3000/store/products/add</a> - (POST) add a product to the store
+- <a href="http://localhost:3000/store/products/category/:cat">http://localhost:3000/store/products/category/:cat</a> - (GET) get products by category
 
 ##### Users Routes
-- <a href="http://localhost:3000/store/users">http://localhost:3000/store/users</a> - get all users route
-- <a href="http://localhost:3000/store/users/:id">http://localhost:3000/store/users/:id</a> - get all users route
-- <a href="http://localhost:3000/store/users/add">http://localhost:3000/store/users/add</a> - add a user route
+- <a href="http://localhost:3000/store/users">http://localhost:3000/store/users</a> - (GET) get all users route
+- <a href="http://localhost:3000/store/users/:id">http://localhost:3000/store/users/:id</a> - (GET)  all users route
+- <a href="http://localhost:3000/store/users/add">http://localhost:3000/store/users/add</a> - (POST) add a user route
   
 
 
 ##### Orders Routes
-- <a href="http://localhost:3000/store/orders">http://localhost:3000/store/orders</a>. - get all orders route
-- <a href="http://localhost:3000/store/orders/:state">http://localhost:3000/store/orders/:state</a> - get orders by a particular status[ completed | uncompleted ]
-- <a href="http://localhost:3000/store/orders/product">http://localhost:3000/store/orders/product</a> - add product to orders
+- <a href="http://localhost:3000/store/orders">http://localhost:3000/store/orders</a>. - (GET) get all orders route
+- <a href="http://localhost:3000/store/orders/:state">http://localhost:3000/store/orders/:state</a> - (GET)  get orders by a particular status[ completed | uncompleted ]
+- <a href="http://localhost:3000/store/orders/product">http://localhost:3000/store/orders/product</a> - (POST) add product to orders
 

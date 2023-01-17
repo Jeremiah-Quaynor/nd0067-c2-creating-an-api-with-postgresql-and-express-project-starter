@@ -1,13 +1,16 @@
-import supertest from 'supertest'
-import { app } from '../server'
-import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv'
-import verifyAuthToken from '../middleware/verifyToken';
+// import supertest from 'supertest'
+const supertest = require('supertest')
+// import { app } from '../server'
+const app = require('../server')
+// import jwt from 'jsonwebtoken';
+// import dotenv from 'dotenv'
+const dotenv = require('dotenv')
+// import verifyAuthToken from '../middleware/verifyToken';
 
 
 const request = supertest(app);
 dotenv.config();
-const SECRET_KEY: any = process.env.SECRET_KEY;
+// let SECRET_KEY: string|undefined = process.env.SECRET_KEY;
 
 
 
