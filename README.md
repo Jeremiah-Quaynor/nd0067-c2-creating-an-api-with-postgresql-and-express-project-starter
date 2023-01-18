@@ -55,7 +55,7 @@ To enter the various endpoints on the store. You first have to navigate to <a hr
 #### 3. Orders Endpoint
 - To view the various orders on the endpoint, you have to navigate to <a href="http://localhost:3000/store/orders">http://localhost:3000/store/orders</a>. An array of objects containning the orders should appear.
 - To view orders with a with a particular status, you have to access the <a href="http://localhost:3000/store/orders">http://localhost:3000/store/orders</a>  route and attact a <code>/status</code> to the end. [where **status** = the status you want].
-- To add a product to orders, you will have to navigate to <a href="http://localhost:3000/store/orders/">http://localhost:3000/store/orders</a>. Add a <code>/product</code>, then you add the data you want to be added with to the orders.  
+
   
 
 

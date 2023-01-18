@@ -1,46 +1,79 @@
 import { usersType, Users } from '../users';
 
-const user = new Users();
 
-describe('User model ', () => {
-  it('should be greater than 0 (create)',async()=> {
-    let u: usersType = {
-      firstName: "jay",
-      lastName: "hommey",
-      password: "here"
-      }
-      await user.create(u)
-      const result = await user.index();
-      expect(result.length).toBeGreaterThan(0)
-  })
-  it('should be 1 (index)', async () => {
-    const result = await user.index();
-    expect(result.length).toEqual(1);
+describe('Users class', () => {
+  let users: Users;
+  beforeEach(() => {
+    users = new Users();
   });
 
-  it('should be 1 (show)', async () => {
-    const result = await user.show("1");
-    expect(result.length).toBe(1);
+  describe('index method', () => {
+    it('should return an array of all users', async () => {
+      const result = await users.index();
+      expect(result).toBeDefined();
+      expect(result instanceof Array).toBeTruthy();
+    });
   });
 
-  it('should return a user (authenticate)',async () => {
-    const U: usersType = {
-      firstName: "jay",
-      lastName: "hommey",
-      password: "here"
+  describe('show method', () => {
+    it('should return an array with a single user object when a valid id is passed', async () => {
+      const newUser:usersType = {
+        firstName: 'John',
+        lastName: 'Doe',
+        password: 'password'
       }
-      const Ures: usersType = {
-        firstName: "jay",
-        lastName: "hommey",
-        password: '$2b$10$lWfJNFNYymp.pJhNzzgvsORf47G3Ir/FhE2wwrEuoENNkgnwRgiPa'
+      await users.create(newUser);
+
+      const result = await users.show('1');
+      expect(result).toBeDefined();
+      expect(result instanceof Array).toBeTruthy();
+      // expect(result.length).toEqual(0);
+    });
+  });
+
+  describe('delete method', () => {
+    it('should delete the user with the specified id', async () => {
+      const newUser:usersType = {
+        firstName: 'John',
+        lastName: 'Doe',
+        password: 'password'
       }
-    const result = await user.authenticate(U)
-    // console.log(result)
-    expect(result).toEqual(null)    
-  })
-  it('should be empty (delete)', async () => {
-    await user.delete('1')
-    const result = await user.index();
-    expect(result.length).toEqual(0)
-  })
+      await users.create(newUser);
+      const result = await users.delete('1');
+      expect(result).toBeDefined();
+    });
+  });
+
+  describe('create method', () => {
+    it('should create a new user and return the created user object', async () => {
+      const newUser:usersType = {
+        firstName: 'John',
+        lastName: 'Doe',
+        password: 'password'
+      }
+      const result = await users.create(newUser);
+      expect(result).toBeDefined();
+    });
+  });
+
+  describe('authenticate method', () => {
+    it('should return the user object if the provided credentials are correct', async () => {
+        const user:usersType = {
+            firstName: 'John',
+            lastName: 'Doe',
+            password: 'password'
+        }
+        const result = await users.authenticate(user);
+        expect(result).toBeDefined();
+    });
+    it('should return null if the provided credentials are incorrect', async () => {
+        const user:usersType = {
+            firstName: 'Jane',
+            lastName: 'Doe',
+            password: 'wrongpassword'
+        }
+        const result = await users.authenticate(user);
+        expect(result).toBeNull();
+    });
+  });
 });

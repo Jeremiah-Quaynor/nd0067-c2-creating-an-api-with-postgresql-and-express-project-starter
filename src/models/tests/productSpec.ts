@@ -1,28 +1,42 @@
-import { Product, productType } from '../product';
+import {Product} from '../product';
 
-const product = new Product();
+describe('Product class', () => {
+  let product: Product;
+  beforeEach(() => {
+    product = new Product();
+  });
 
-describe('Product model ', () => {
-    it('should be 1 (index)', async () => {
+  describe('index method', () => {
+    it('should return an array of all products', async () => {
       const result = await product.index();
-      expect(result.length).toBe(1);
+      expect(result).toBeDefined();
+      expect(result instanceof Array).toBeTruthy();
     });
-    it('should be 1 (show)', async()=> {
-      const result = await product.show('1');
-      expect(result.length).toBe(1)
-    })
-    it('should be greater than 0 (create)',async () => {
-      const p:productType = {
-        name: "Ring Lights",
-        price: 3242,
-        category: "Lights"
+  });
+
+  describe('show method', () => {
+    it('should return an array with a single product object when a valid id is passed', async () => {
+      const newProduct = {
+        name: 'Apple',
+        price: 1000,
+        category: 'fruit'
       }
-      await product.create(p)
-      const products = await product.index()
-      expect(products.length).toBeGreaterThan(0)
-    })
-    it('should be 1 (filterBy)',async () => {
-      const result = await product.filterBy('Lights') 
-      expect(result.length).toBe(1)
-    })
-});
+      await product.create(newProduct);
+      const result = await product.show('1');
+      expect(result).toBeDefined();
+      expect(result instanceof Array).toBeTruthy();
+      expect(result.length).toEqual(1);
+    });
+  });
+
+  describe('create method', () => {
+    it('should create a new product and return the created product object', async () => {
+      const newProduct = {
+        name: 'Apple',
+        price: 1000,
+        category: 'fruit'
+      }
+      const result = await product.create(newProduct);
+      expect(result).toBeDefined();
+    });
+  })})

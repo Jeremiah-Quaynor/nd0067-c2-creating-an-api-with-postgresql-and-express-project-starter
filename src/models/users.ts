@@ -82,7 +82,6 @@ export class Users {
         return user
       }
     }
-
     return null
   }
 }
