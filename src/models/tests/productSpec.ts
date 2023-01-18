@@ -23,6 +23,6 @@ describe('Product model ', () => {
     })
     it('should be 1 (filterBy)',async () => {
       const result = await product.filterBy('Lights') 
-      expect(result.length).toBe(0)
+      expect(result.length).toBe(1)
     })
 });
